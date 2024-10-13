@@ -24,8 +24,8 @@ class RpcProcessor implements EventHandler<RpcEvent> {
 
     @Override
     public void onEvent(RpcEvent event, long sequence, boolean endOfBatch) {
-        Object resultFuture = handler.invoke(event.getRequest(), event.getFunction());
-        event.getResponseFuture().complete(resultFuture);
+        CompletableFuture future = handler.invoke(event.getRequest(), event.getFunction());
+        future.thenApply(result-> event.getResponseFuture().complete(result));
     }
 
 }

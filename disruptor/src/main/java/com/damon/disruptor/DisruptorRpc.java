@@ -31,8 +31,8 @@ public class DisruptorRpc {
     public static void main(String[] args) throws Exception {
         DisruptorRpc disruptorRpc = new DisruptorRpc(new Handler() {
             @Override
-            public Object invoke(Command command, Function function) {
-                return 1;
+            public CompletableFuture invoke(Command command, Function function) {
+                return CompletableFuture.completedFuture(1);
             }
         });
         List<CompletableFuture> list = new ArrayList<>();
